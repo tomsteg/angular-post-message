@@ -21,14 +21,12 @@
         var error, response;
         event = event.originalEvent || event;
         if (event && event.data) {
-          response = null;
+          response = {};
           $rootScope.sender = event.source;
           try {
             response = angular.fromJson(event.data);
           } catch (_error) {
-            error = _error;
-            $log.error('ahem', error);
-            response = event.data;
+            response.data = event.data;
           }
           response.origin = event.origin;
           $rootScope.$root.$broadcast('$messageIncoming', response);
